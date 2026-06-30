@@ -5,7 +5,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 const HERO_IMG =
-  "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=1600&q=85";
+  "https://images.unsplash.com/photo-1695222833131-54ee679ae8e5?auto=format&fit=crop&w=1800&q=85";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -272,7 +272,7 @@ export default function LoginPage() {
       >
         <img
           src={HERO_IMG}
-          alt="Norwegian coastal road"
+          alt="White semi-truck on a rural road"
           style={{
             position: "absolute",
             inset: 0,
