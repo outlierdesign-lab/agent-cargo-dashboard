@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { C, display, font, mono } from "@/lib/tokens";
 import {
   IconHouse,
@@ -141,6 +141,7 @@ function ProfileFooter() {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
   const toast = useToast();
+  const router = useRouter();
 
   useEffect(() => {
     const onClick = (e: MouseEvent) => {
@@ -188,6 +189,7 @@ function ProfileFooter() {
             onClick={() => {
               setOpen(false);
               toast.show("Signed out — see you soon", "info");
+              router.push("/login");
             }}
           />
           <div
