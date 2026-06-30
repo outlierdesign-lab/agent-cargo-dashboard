@@ -12,8 +12,12 @@ import {
   IconClipboard,
   IconSettings,
   IconPlug,
+  IconUser,
+  IconChevronDown,
 } from "./Icons";
 import { conversations } from "@/data/seed";
+import { useEffect, useRef, useState } from "react";
+import { useToast } from "./Toast";
 
 const navItems = [
   { href: "/overview", label: "Overview", Icon: IconHouse },
@@ -25,6 +29,12 @@ const navItems = [
   { href: "/config", label: "Agent Config", Icon: IconSettings },
   { href: "/integrations", label: "Integrations", Icon: IconPlug },
 ];
+
+const USER = {
+  name: "Milan Verma",
+  email: "milan@agentcargo.io",
+  initials: "MV",
+};
 
 export default function Sidebar() {
   const pathname = usePathname() || "";
@@ -121,17 +131,219 @@ export default function Sidebar() {
         })}
       </nav>
 
-      <div
+      <ProfileFooter />
+    </aside>
+  );
+}
+
+function ProfileFooter() {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+  const toast = useToast();
+
+  useEffect(() => {
+    const onClick = (e: MouseEvent) => {
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
+    };
+    document.addEventListener("mousedown", onClick);
+    return () => document.removeEventListener("mousedown", onClick);
+  }, []);
+
+  return (
+    <div ref={ref} style={{ position: "relative", borderTop: `1px solid ${C.borderLight}` }}>
+      {open && (
+        <div
+          style={{
+            position: "absolute",
+            left: 10,
+            right: 10,
+            bottom: "calc(100% + 6px)",
+            background: C.surface,
+            border: `1px solid ${C.border}`,
+            boxShadow: "0 -4px 16px rgba(0,0,0,0.08)",
+            zIndex: 20,
+            padding: "4px 0",
+          }}
+        >
+          <MenuItem
+            label="Profile"
+            Icon={IconUser}
+            onClick={() => {
+              setOpen(false);
+              toast.show("Profile view coming soon", "info");
+            }}
+          />
+          <MenuItem
+            label="Settings"
+            Icon={IconSettings}
+            href="/config"
+            onClick={() => setOpen(false)}
+          />
+          <div style={{ borderTop: `1px solid ${C.borderLight}`, margin: "4px 0" }} />
+          <MenuItem
+            label="Log out"
+            Icon={IconLogout}
+            danger
+            onClick={() => {
+              setOpen(false);
+              toast.show("Signed out — see you soon", "info");
+            }}
+          />
+          <div
+            style={{
+              padding: "6px 14px 4px",
+              fontFamily: mono,
+              fontSize: 9.5,
+              color: C.textTer,
+              letterSpacing: "0.06em",
+              textTransform: "uppercase",
+              borderTop: `1px solid ${C.borderLight}`,
+            }}
+          >
+            Agent Cargo · v1.0
+          </div>
+        </div>
+      )}
+
+      <button
+        onClick={() => setOpen((o) => !o)}
         style={{
-          padding: "12px 18px",
-          borderTop: `1px solid ${C.borderLight}`,
-          fontSize: 10,
-          color: C.textTer,
-          fontFamily: mono,
+          display: "flex",
+          alignItems: "center",
+          gap: 10,
+          width: "100%",
+          padding: "12px 14px",
+          background: open ? C.surfaceAlt : "transparent",
+          textAlign: "left",
+          transition: "background 0.15s",
+          fontFamily: font,
+        }}
+        onMouseEnter={(e) => {
+          if (!open) e.currentTarget.style.background = C.surfaceAlt;
+        }}
+        onMouseLeave={(e) => {
+          if (!open) e.currentTarget.style.background = "transparent";
         }}
       >
-        Agent Cargo · v1.0
-      </div>
-    </aside>
+        <span
+          style={{
+            width: 28,
+            height: 28,
+            borderRadius: "50%",
+            background: C.accentSoft,
+            color: C.accent,
+            border: `1px solid ${C.accentBorder}`,
+            display: "inline-flex",
+            alignItems: "center",
+            justifyContent: "center",
+            fontFamily: mono,
+            fontSize: 10.5,
+            fontWeight: 700,
+            flexShrink: 0,
+          }}
+        >
+          {USER.initials}
+        </span>
+        <span style={{ flex: 1, minWidth: 0 }}>
+          <span
+            style={{
+              display: "block",
+              fontSize: 12,
+              fontWeight: 600,
+              color: C.text,
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              whiteSpace: "nowrap",
+            }}
+          >
+            {USER.name}
+          </span>
+          <span
+            style={{
+              display: "block",
+              fontFamily: mono,
+              fontSize: 9.5,
+              color: C.textTer,
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              whiteSpace: "nowrap",
+              marginTop: 1,
+            }}
+          >
+            {USER.email}
+          </span>
+        </span>
+        <IconChevronDown
+          size={11}
+          color={open ? C.accent : C.textTer}
+        />
+      </button>
+    </div>
+  );
+}
+
+function MenuItem({
+  label,
+  Icon,
+  onClick,
+  href,
+  danger,
+}: {
+  label: string;
+  Icon: (p: { size?: number; color?: string }) => React.ReactElement;
+  onClick: () => void;
+  href?: string;
+  danger?: boolean;
+}) {
+  const inner = (
+    <span
+      style={{
+        display: "flex",
+        alignItems: "center",
+        gap: 10,
+        padding: "9px 14px",
+        fontSize: 12.5,
+        color: danger ? C.red : C.text,
+        cursor: "pointer",
+        transition: "background 0.1s",
+        fontFamily: font,
+      }}
+      onMouseEnter={(e) => (e.currentTarget.style.background = C.surfaceAlt)}
+      onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
+    >
+      <Icon size={13} color={danger ? C.red : C.textSec} />
+      {label}
+    </span>
+  );
+  if (href) {
+    return (
+      <Link href={href} onClick={onClick} style={{ display: "block" }}>
+        {inner}
+      </Link>
+    );
+  }
+  return (
+    <button onClick={onClick} style={{ display: "block", width: "100%", textAlign: "left" }}>
+      {inner}
+    </button>
+  );
+}
+
+function IconLogout({ size = 13, color = "currentColor" }: { size?: number; color?: string }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke={color}
+      strokeWidth={1.8}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+      <path d="m16 17 5-5-5-5" />
+      <path d="M21 12H9" />
+    </svg>
   );
 }

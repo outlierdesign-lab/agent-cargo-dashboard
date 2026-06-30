@@ -33,11 +33,4 @@ export const display = "'Geist', 'Inter', -apple-system, sans-serif";
 
 export const borderBase = `1px solid ${C.border}`;
 
-export const accentTopEdge: React.CSSProperties = {
-  position: "absolute",
-  top: 0,
-  left: 0,
-  right: 0,
-  height: 3,
-  background: `linear-gradient(90deg, ${C.accent}, ${C.accent}40)`,
-};
+export const accentTopEdge: React.CSSProperties = {};
