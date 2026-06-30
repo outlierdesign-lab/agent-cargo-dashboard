@@ -32,8 +32,9 @@ const navItems = [
 
 const USER = {
   name: "Adam Wills",
-  email: "adam@agentcargo.io",
+  email: "adam@gire.no",
   initials: "AW",
+  company: "Gire Mobility",
 };
 
 export default function Sidebar() {
