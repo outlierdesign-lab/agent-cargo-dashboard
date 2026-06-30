@@ -31,9 +31,9 @@ const navItems = [
 ];
 
 const USER = {
-  name: "Milan Verma",
-  email: "milan@agentcargo.io",
-  initials: "MV",
+  name: "Adam Wills",
+  email: "adam@agentcargo.io",
+  initials: "AW",
 };
 
 export default function Sidebar() {
