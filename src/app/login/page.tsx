@@ -3,6 +3,7 @@
 import { C, display, font, mono } from "@/lib/tokens";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Logo from "@/components/dashboard/Logo";
 
 const HERO_IMG =
   "https://images.unsplash.com/photo-1695222833131-54ee679ae8e5?auto=format&fit=crop&w=1800&q=85";
@@ -43,7 +44,7 @@ export default function LoginPage() {
       >
         {/* Top wordmark */}
         <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-          <BrandMark />
+          <Logo size={32} />
           <div>
             <div
               style={{
@@ -256,7 +257,7 @@ export default function LoginPage() {
           }}
         >
           <span>Agent Cargo · v1.0</span>
-          <span>Built for Gire Mobility</span>
+          <span>Secure sign-in</span>
         </div>
       </div>
 
@@ -293,65 +294,6 @@ export default function LoginPage() {
               "linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.35) 100%)",
           }}
         />
-        {/* "Curated by" caption chip */}
-        <div
-          style={{
-            position: "absolute",
-            right: 28,
-            bottom: 28,
-            background: C.surface,
-            border: `1px solid ${C.border}`,
-            padding: "10px 14px",
-            display: "flex",
-            alignItems: "center",
-            gap: 10,
-          }}
-        >
-          <span
-            style={{
-              width: 28,
-              height: 28,
-              borderRadius: "50%",
-              background: C.accentSoft,
-              color: C.accent,
-              border: `1px solid ${C.accentBorder}`,
-              display: "inline-flex",
-              alignItems: "center",
-              justifyContent: "center",
-              fontFamily: mono,
-              fontSize: 10,
-              fontWeight: 700,
-            }}
-          >
-            GM
-          </span>
-          <div>
-            <div
-              style={{
-                fontFamily: mono,
-                fontSize: 9,
-                color: C.textTer,
-                textTransform: "uppercase",
-                letterSpacing: "0.08em",
-                fontWeight: 600,
-              }}
-            >
-              Deployed for
-            </div>
-            <div
-              style={{
-                fontFamily: display,
-                fontSize: 13,
-                color: C.text,
-                fontWeight: 600,
-                letterSpacing: "-0.01em",
-                marginTop: 1,
-              }}
-            >
-              Gire Mobility
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   );
@@ -364,27 +306,6 @@ const legalLinkStyle: React.CSSProperties = {
   textUnderlineOffset: 2,
   cursor: "pointer",
 };
-
-function BrandMark() {
-  return (
-    <span
-      style={{
-        width: 28,
-        height: 28,
-        background: C.text,
-        color: "#FFFFFF",
-        display: "inline-flex",
-        alignItems: "center",
-        justifyContent: "center",
-        fontFamily: display,
-        fontSize: 13,
-        fontWeight: 700,
-      }}
-    >
-      AC
-    </span>
-  );
-}
 
 function GoogleIcon() {
   return (

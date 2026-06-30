@@ -18,6 +18,7 @@ import {
 import { conversations } from "@/data/seed";
 import { useEffect, useRef, useState } from "react";
 import { useToast } from "./Toast";
+import Logo from "./Logo";
 
 const navItems = [
   { href: "/overview", label: "Overview", Icon: IconHouse },
@@ -56,29 +57,41 @@ export default function Sidebar() {
         zIndex: 10,
       }}
     >
-      <div style={{ padding: "20px 18px 14px 18px", borderBottom: `1px solid ${C.borderLight}` }}>
-        <div
-          style={{
-            fontFamily: display,
-            fontSize: 16,
-            fontWeight: 700,
-            letterSpacing: "-0.03em",
-            color: C.text,
-          }}
-        >
-          Agent Cargo
-        </div>
-        <div
-          style={{
-            fontFamily: mono,
-            fontSize: 10,
-            color: C.textTer,
-            textTransform: "uppercase",
-            letterSpacing: "0.08em",
-            marginTop: 2,
-          }}
-        >
-          ops dashboard
+      <div
+        style={{
+          padding: "20px 18px 14px 18px",
+          borderBottom: `1px solid ${C.borderLight}`,
+          display: "flex",
+          alignItems: "center",
+          gap: 10,
+        }}
+      >
+        <Logo size={28} />
+        <div>
+          <div
+            style={{
+              fontFamily: display,
+              fontSize: 16,
+              fontWeight: 700,
+              letterSpacing: "-0.03em",
+              color: C.text,
+              lineHeight: 1,
+            }}
+          >
+            Agent Cargo
+          </div>
+          <div
+            style={{
+              fontFamily: mono,
+              fontSize: 9.5,
+              color: C.textTer,
+              textTransform: "uppercase",
+              letterSpacing: "0.08em",
+              marginTop: 3,
+            }}
+          >
+            ops dashboard
+          </div>
         </div>
       </div>
 
